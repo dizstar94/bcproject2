@@ -9,6 +9,7 @@ import {
 import firebase from "../../app/config/template_firebase";
 import { FETCH_EVENTS } from "../event/eventConstants";
 import {attendUser} from '../event/apis2';
+import {DelUser} from '../event/apis3';
 export const updateProfile = user => async (
   dispatch,
   getState,
@@ -190,10 +191,12 @@ export const cancelGoingToEvent = event => async (
   const firestore = getFirestore();
   const user = firestore.auth().currentUser;
   try {
+    
     await firestore.update(`events/${event.id}`, {
       [`attendees.${user.uid}`]: firestore.FieldValue.delete()
     });
     await firestore.delete(`event_attendee/${event.id}_${user.uid}`);
+    DelUser(user.uid,event);
     toastr.success("Success", "You have removed yourself from the event");
   } catch (error) {
     console.log(error);

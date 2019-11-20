@@ -3,7 +3,7 @@
 
 
 
-export async function sendtobc (userUid,eventId,eventDate){
+export async function sendtobc (userUid,eventId,eventDate,money){
     
 
      
@@ -23,7 +23,11 @@ export async function sendtobc (userUid,eventId,eventDate){
     
      hostUid: `${userUid}`,
     
-       date: `${eventDate}`
+       date: `${eventDate}`,
+
+       money:`${money}`
+      
+
     
     
       };
